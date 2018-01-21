@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -40,12 +41,23 @@ public class Client implements Serializable{
 	@JsonIgnore
 	@ManyToOne
 	private Tailleur tailleur;
+	@OneToMany(mappedBy="client", cascade=CascadeType.ALL, orphanRemoval=true)
+	private Collection<MensurationValue> mensurationValues;
 	@Transient
 	private Long idTailleur;
 	public Client() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Collection<MensurationValue> getMensurationValues() {
+		return mensurationValues;
+	}
+
+	public void setMensurationValues(Collection<MensurationValue> mensurationValues) {
+		this.mensurationValues = mensurationValues;
+	}
+
 	public String getAdresse() {
 		return adresse;
 	}

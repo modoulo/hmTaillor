@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,12 +33,23 @@ public class Catalogue implements Serializable{
 	@JsonIgnore
 	@ManyToOne
 	private Tailleur tailleur;
+	@OneToMany(mappedBy="catalogue", cascade=CascadeType.ALL, orphanRemoval=true)
+	private Collection<Model> models;
 	@Transient
 	private Long idTailleur;
 	public Catalogue() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Collection<Model> getModels() {
+		return models;
+	}
+
+	public void setModels(Collection<Model> models) {
+		this.models = models;
+	}
+
 	public Tailleur getTailleur() {
 		return tailleur;
 	}
