@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
@@ -14,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import urlParams.UserRole;
 
 @Entity
-public class Admin implements Serializable{
+public class Tailleur implements Serializable{
 
 		
 		@Id
@@ -24,17 +26,20 @@ public class Admin implements Serializable{
 		private String nom;
 		@NotNull
 		private String prenom;
+		@Enumerated(EnumType.STRING)
+		private Sexe sexe;
+		private String adresse;
 		@NotNull
 		@Email
 		private String email;
-		@JsonIgnore
 		private String motDePasse;
 		private String numtel;
-		public Admin() {
+		
+		public Tailleur() {
 			super();
 			// TODO Auto-generated constructor stub
 		}
-		public Admin(String nom, String prenom, Date dateDeNaissance, String lieuDeNaissance, String email,
+		public Tailleur(String nom, String prenom, Date dateDeNaissance, String lieuDeNaissance, String email,
 				String numtel, String numCartEtudiant, int anneeDetude) {
 			super();
 			this.nom = nom;
@@ -43,6 +48,7 @@ public class Admin implements Serializable{
 			this.numtel = numtel;
 		}
 
+		
 		public void setMotDePasse(String motDePasse) {
 			this.motDePasse = motDePasse;
 		}
@@ -56,6 +62,12 @@ public class Admin implements Serializable{
 		public void setEmail(String email) {
 			this.email = email;
 		}
+		public String getAdresse() {
+			return adresse;
+		}
+		public void setAdresse(String adresse) {
+			this.adresse = adresse;
+		}
 		public boolean verifieMotDePasse(String motDePasse) {
 			if (motDePasse==null) {
 				return false;
@@ -67,7 +79,7 @@ public class Admin implements Serializable{
 		}
 		@JsonIgnore
 		public UserRole getIdentiy() {
-			return new UserRole(this.id, Role.Admin);
+			return new UserRole(this.id, Role.Tailleur);
 		}
 		
 		
@@ -75,7 +87,6 @@ public class Admin implements Serializable{
 			return id;
 		}
 		public void setId(Long id) {
-			System.out.println("je suis setId: "+id);
 			this.id = id;
 		}
 		public String getNom() {
@@ -95,6 +106,12 @@ public class Admin implements Serializable{
 		}
 		public void setNumtel(String numtel) {
 			this.numtel = numtel;
+		}
+		public Sexe getSexe() {
+			return sexe;
+		}
+		public void setSexe(Sexe sexe) {
+			this.sexe = sexe;
 		}
 		
 

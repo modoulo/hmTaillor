@@ -1,6 +1,6 @@
 package com.boly.web;
 
-import java.util.Optional;
+import java.util.Optional; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boly.dao.AdminRepository;
-import com.boly.dao.EtudiantRepository;
+import com.boly.dao.TailleurRepository;
 import com.boly.entity.Admin;
-import com.boly.entity.Etudiant;
-import com.boly.entity.User;
+import com.boly.entity.Tailleur;
 
 import urlParams.ParamUrlConnection;
 import urlParams.UserRole;
@@ -22,7 +21,7 @@ import urlParams.UserRole;
 @RestController
 public class connectionWebService {
 	@Autowired
-	private EtudiantRepository etudiantRepository;
+	private TailleurRepository tailleurRepository;
 	@Autowired
 	private AdminRepository adminRepository;
 	
@@ -42,14 +41,14 @@ public class connectionWebService {
 			System.out.println("le mot de passe est null");
 			return null;
 		}
-		Optional<Etudiant> etudiant = etudiantRepository.findTopByEmail(param.getEmail());
+		Optional<Tailleur> tailleur = tailleurRepository.findTopByEmail(param.getEmail());
 		Optional<Admin> admin = adminRepository.findTopByEmail(param.getEmail());		
-		if (etudiant.isPresent()) {
-			System.out.println("etudiant.email: "+etudiant.get().getEmail());		
-			if (etudiant.get().verifieMotDePasse(param.getMotDePasse())) {
-				return etudiant.get().getIdentiy();
+		if (tailleur.isPresent()) {
+			System.out.println("etudiant.email: "+tailleur.get().getEmail());		
+			if (tailleur.get().verifieMotDePasse(param.getMotDePasse())) {
+				return tailleur.get().getIdentiy();
 			}
-			System.out.println("motDePasse incorrect: "+etudiant.get().getEmail());	
+			System.out.println("motDePasse incorrect: "+tailleur.get().getEmail());	
 			return null;
 		}
 		if (admin.isPresent()) {
@@ -57,7 +56,10 @@ public class connectionWebService {
 			if (admin.get().verifieMotDePasse(param.getMotDePasse())) {
 				return admin.get().getIdentiy();
 			}
+			System.out.println("motDePasse incorrect: "+param.getEmail());
+			return null;
 		}
+		System.out.println("il n'y a pas de compte avec l'email: "+param.getEmail());
 		return null;
 	}
 	

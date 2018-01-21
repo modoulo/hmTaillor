@@ -1,16 +1,8 @@
  package com.boly.web;
 
 
-import java.io.File;
 import java.util.List; 
-import java.util.Optional;
-
-import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,17 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boly.dao.AdminRepository;
-import com.boly.dao.DepartementRepository;
-import com.boly.dao.EtudiantRepository;
 import com.boly.entity.Admin;
-import com.boly.entity.Departement;
-import com.boly.entity.Etudiant;
-import com.boly.entity.Sexe;
-import com.jayway.jsonpath.Option;
-
-import net.glxn.qrgen.javase.QRCode;
 import urlParams.ChangeMotDePasseParam;
-import urlParams.ParamUrlEtudiantUpdateDepartement;
 
 
 

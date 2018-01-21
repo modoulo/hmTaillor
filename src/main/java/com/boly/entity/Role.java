@@ -1,6 +1,6 @@
 package com.boly.entity;
 
 public enum Role {
-	Etudiant,
+	Tailleur,
 	Admin
 }
