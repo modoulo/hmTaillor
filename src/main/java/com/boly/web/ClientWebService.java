@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.boly.dao.ClientRepository;
+import com.boly.dao.TailleurRepository;
 import com.boly.entity.Client;
 import com.boly.entity.Sexe;
+import com.boly.entity.Tailleur;
 
 
 
@@ -23,9 +25,11 @@ import com.boly.entity.Sexe;
 public class ClientWebService {
 	@Autowired
 	private ClientRepository clientRepository;
+	@Autowired
+	private TailleurRepository tailleurRepository;
 	
 	/**
-	 * @param client(nom, prenom, sexe,[ email,numTel, adresse])
+	 * @param client(nom, prenom, sexe, idTailleur[ email,numTel, adresse])
 	 * @return Long(Batiment.getId())
 	 */
 	@RequestMapping(value="/clients", method=RequestMethod.POST)
@@ -47,6 +51,16 @@ public class ClientWebService {
 			System.out.println("le sexe est: "+client.getSexe());
 			return -1L;
 		}
+		if (client.getIdTailleur()==null) {
+			System.out.println("id tailleur: "+client.getIdTailleur());
+			return -1L;
+		}
+		Optional<Tailleur> tailleur = tailleurRepository.findById(client.getIdTailleur());
+		if (!tailleur.isPresent()) {
+			System.out.println("le tailleur est inconnue dans la base de donnees ");
+			return -1L;
+		}
+		client.setTailleur(tailleur.get());
 		try {
 			client = clientRepository.save(client);			
 		} catch (Exception e) {
@@ -93,7 +107,7 @@ public class ClientWebService {
 				client.setNumtel(param.getNumtel());
 			}
 			if (param.getAdresse()!="" && param.getAdresse()!=null) {
-				client.setNumtel(param.getNumtel());
+				client.setAdresse(param.getAdresse());
 			}
 			try {
 				client = clientRepository.save(client);			

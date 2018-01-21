@@ -23,34 +23,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import urlParams.UserRole;
 
 @Entity
-public class Client implements Serializable{
+public class Catalogue implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
 	@NotNull
 	private String nom;
-	@NotNull
-	private String prenom;
-	@Enumerated(EnumType.STRING)
-	private Sexe sexe;
-	private String numtel;
-	@Email
-	private String email;
-	private String adresse;
 	@JsonIgnore
 	@ManyToOne
 	private Tailleur tailleur;
 	@Transient
 	private Long idTailleur;
-	public Client() {
+	public Catalogue() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	public String getAdresse() {
-		return adresse;
-	}
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
 	}
 	public Tailleur getTailleur() {
 		return tailleur;
@@ -64,12 +50,6 @@ public class Client implements Serializable{
 	public void setIdTailleur(Long idTailleur) {
 		this.idTailleur = idTailleur;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	public Long getId() {
 		return id;
 	}
@@ -81,24 +61,6 @@ public class Client implements Serializable{
 	}
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-	public String getPrenom() {
-		return prenom;
-	}
-	public Sexe getSexe() {
-		return sexe;
-	}
-	public void setSexe(Sexe sexe) {
-		this.sexe = sexe;
-	}
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-	public String getNumtel() {
-		return numtel;
-	}
-	public void setNumtel(String numtel) {
-		this.numtel = numtel;
 	}
 	
 }

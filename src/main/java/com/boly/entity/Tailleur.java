@@ -1,13 +1,16 @@
 package com.boly.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
@@ -34,6 +37,10 @@ public class Tailleur implements Serializable{
 		private String email;
 		private String motDePasse;
 		private String numtel;
+		@OneToMany(mappedBy="tailleur", cascade = CascadeType.ALL, orphanRemoval=true)
+		private Collection<Client> clients;
+		@OneToMany(mappedBy="tailleur", cascade = CascadeType.ALL, orphanRemoval=true)
+		private Collection<Catalogue> catalogues;
 		
 		public Tailleur() {
 			super();
@@ -112,6 +119,18 @@ public class Tailleur implements Serializable{
 		}
 		public void setSexe(Sexe sexe) {
 			this.sexe = sexe;
+		}
+		public Collection<Client> getClients() {
+			return clients;
+		}
+		public void setClients(Collection<Client> clients) {
+			this.clients = clients;
+		}
+		public Collection<Catalogue> getCatalogues() {
+			return catalogues;
+		}
+		public void setCatalogues(Collection<Catalogue> catalogues) {
+			this.catalogues = catalogues;
 		}
 		
 
